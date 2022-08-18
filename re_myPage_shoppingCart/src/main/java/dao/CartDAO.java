@@ -1,0 +1,214 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import dto.CartDTO;
+
+public class CartDAO {
+	private static CartDAO _dao;
+	
+	public CartDAO(){
+		
+	}
+	
+	static {
+		_dao= new CartDAO();
+	}
+	
+	public static CartDAO getDAO() {
+		return _dao;
+	}
+	
+	String url = "jdbc:mariadb://127.0.0.1:3306/webdev";
+	String user = "webmaster";
+	String pwd = "1234";
+	
+	public int insertCart(CartDTO cart) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			con = DriverManager.getConnection(url, user, pwd);
+			String sql = "insert into cart values(?, ?)";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, cart.getProductid());
+			pstmt.setInt(2, cart.getQuantitiy());
+			
+			rows= pstmt.executeUpdate();
+			
+			pstmt.close();
+			con.close();
+			
+			
+		} catch (Exception e) {
+			System.out.println("Cart 테이블 insert 오류 => " + e.getMessage());
+		}
+		return rows;
+
+		
+	}
+	
+	public int updateCart(CartDTO cart) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			con = DriverManager.getConnection(url, user, pwd);
+			
+			String sql = "update cart set userid= ?,productid = ?, quantity = ? where cartid = ?";
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, cart.getUserid());
+			pstmt.setString(2, cart.getProductid());
+			pstmt.setInt(3, cart.getQuantitiy());
+			pstmt.setString(4, cart.getCartid());
+			
+			rows= pstmt.executeUpdate();
+			
+			pstmt.close();
+			con.close();
+			
+			
+		} catch (Exception e) {
+			System.out.println("Cart 테이블 insert 오류 => " + e.getMessage());
+		}
+		return rows;
+	}
+	
+	public int deleteCart(String cartid) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			con = DriverManager.getConnection(url, user, pwd);
+			
+			String sql = "delete from cart where cartid = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, cartid);
+			
+			rows= pstmt.executeUpdate();
+			
+			pstmt.close();
+			con.close();
+			
+			
+		} catch (Exception e) {
+			System.out.println("Cart 테이블 insert 오류 => " + e.getMessage());
+		}
+		return rows;
+	}
+	
+	public int clearCart(String userid) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int rows = 0;
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			con = DriverManager.getConnection(url, user, pwd);
+			
+			String sql = "delete from cart where userid = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			
+			rows= pstmt.executeUpdate();
+			
+			pstmt.close();
+			con.close();
+			
+			
+		} catch (Exception e) {
+			System.out.println("Cart 테이블 insert 오류 => " + e.getMessage());
+		}
+		return rows;
+		
+	}
+	
+	public CartDTO selectCart(String cartid) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CartDTO cart = null;
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			con = DriverManager.getConnection(url, user, pwd);
+			
+			String sql = "select * from cart where cartid = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, cartid);
+			
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				cart = new CartDTO();
+				cart.setCartid(rs.getString("cartid"));
+				cart.setUserid(rs.getString("userid"));
+				cart.setProductid(rs.getString("productid"));
+				cart.setQuantitiy(rs.getInt("quantity"));
+			}
+			
+			pstmt.close();
+			con.close();
+			
+			
+		} catch (Exception e) {
+			System.out.println("Cart 테이블 insert 오류 => " + e.getMessage());
+		}
+		return cart;
+	}
+	
+	public List<CartDTO> selectAllCartList(String userid){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		List<CartDTO> list = new ArrayList<CartDTO>();
+		
+		try {
+			Class.forName("org.mariadb.jdbc.Driver");
+			con = DriverManager.getConnection(url, user, pwd);
+			
+			String sql = "select * from Cart where userid = ? order by cartid";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, userid);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				CartDTO cart = new CartDTO();
+				cart.setCartid(rs.getString("cartid"));
+				cart.setUserid(rs.getString("userid"));
+				cart.setProductid(rs.getString("productid"));
+				cart.setQuantitiy(rs.getInt("quantity"));
+				list.add(cart);
+			}
+			
+			pstmt.close();
+			con.close();
+			
+			
+		} catch (Exception e) {
+			System.out.println("Cart 테이블 insert 오류 => " + e.getMessage());
+		}
+		
+		return list;
+	}
+	
+}
+
+
+
+
