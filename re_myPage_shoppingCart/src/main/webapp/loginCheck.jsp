@@ -88,8 +88,8 @@
 			stmt3= con.createStatement();
 			stmt3.executeUpdate(qurey3);
 
-			stmt4= con.createStatement();
-			stmt4.executeUpdate(qurey4);
+			//stmt4= con.createStatement();
+			//stmt4.executeUpdate(qurey4);
 			
 			Locale locale = request.getLocale();
 			String lang = locale.getLanguage();

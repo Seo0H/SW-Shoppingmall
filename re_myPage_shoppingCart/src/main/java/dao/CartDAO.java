@@ -39,7 +39,7 @@ public class CartDAO {
 			con = DriverManager.getConnection(url, user, pwd);
 			String sql = "insert into cart values(?, ?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, cart.getProductid());
+			pstmt.setInt(1, cart.getProductid());
 			pstmt.setInt(2, cart.getQuantitiy());
 			
 			rows= pstmt.executeUpdate();
@@ -69,7 +69,7 @@ public class CartDAO {
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setString(1, cart.getUserid());
-			pstmt.setString(2, cart.getProductid());
+			pstmt.setInt(2, cart.getProductid());
 			pstmt.setInt(3, cart.getQuantitiy());
 			pstmt.setString(4, cart.getCartid());
 			
@@ -156,7 +156,7 @@ public class CartDAO {
 				cart = new CartDTO();
 				cart.setCartid(rs.getString("cartid"));
 				cart.setUserid(rs.getString("userid"));
-				cart.setProductid(rs.getString("productid"));
+				cart.setProductid(rs.getInt("productid"));
 				cart.setQuantitiy(rs.getInt("quantity"));
 			}
 			
@@ -191,7 +191,7 @@ public class CartDAO {
 				CartDTO cart = new CartDTO();
 				cart.setCartid(rs.getString("cartid"));
 				cart.setUserid(rs.getString("userid"));
-				cart.setProductid(rs.getString("productid"));
+				cart.setProductid(rs.getInt("productid"));
 				cart.setQuantitiy(rs.getInt("quantity"));
 				list.add(cart);
 			}

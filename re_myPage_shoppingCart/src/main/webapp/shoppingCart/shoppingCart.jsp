@@ -15,7 +15,7 @@ List<CartDTO> cartList = CartDAO.getDAO().selectAllCartList(userid);
 List<Integer> qList = new ArrayList<Integer>();
 
 for (CartDTO cart : cartList) {
-	String productid = cart.getProductid();
+	int productid = cart.getProductid();
 	qList.add(cart.getQuantitiy());
 	
 }
