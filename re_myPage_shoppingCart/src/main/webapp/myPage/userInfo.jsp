@@ -10,7 +10,7 @@
 </head>
 
 <body>
-
+<%@include file="/top.jsp"%>
 <h1>회원 정보</h1>
 <%
 	String userid = (String)session.getAttribute("userid");
@@ -71,5 +71,7 @@
 </ul>
 
 <a href= "userMain.jsp"> 메인페이지로 이동 </a>
+
+<%@include file="/footer.jsp"%>
 </body>
 </html>

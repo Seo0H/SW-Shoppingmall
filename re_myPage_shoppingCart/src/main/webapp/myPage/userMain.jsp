@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@page import="java.sql.*"%>
 
+
 <!DOCTYPE html>
 <html lang="kr">
 <head>
@@ -11,6 +12,7 @@
 <title>유저 정보 - 메인 페이지</title>
 </head>
 <body>
+
 <script>
 	
 	function pwConfig() {
@@ -35,7 +37,7 @@
 	}
 	
 	</script>
-
+	<%@include file="/top.jsp"%>
 	<% 
 	String url = "jdbc:mariadb://127.0.0.1:3306/webdev";
 	String uid = "webmaster";
@@ -112,6 +114,6 @@
 		%>
 	</form>
 	<form action=""></form>
-
+	<%@include file="/footer.jsp"%>
 </body>
 </html>
