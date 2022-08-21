@@ -110,7 +110,7 @@ for (CartDTO cart : cartList) {
 	}
 	%>
 	
-	<a href="http://localhost:8080/SW_MINIPJ_SEOPART_/myPage/myPage_main_study.jsp"> 메인페이지로 이동 </a>
+	<a href="http://localhost:8080/re_myPage_shoppingCart/myPage/userMain.jsp"> 메인페이지로 이동 </a>
 	<%@include file="/footer.jsp"%>
 
 	<script>
