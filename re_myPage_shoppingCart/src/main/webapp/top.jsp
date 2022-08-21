@@ -32,8 +32,7 @@ else {
 		<td align="center"><b><%=join%></b></td>
 		<td align="center"><b><a href="">전체상품</a></b></td>
 		<td align="center"><b><%=shoppingCart%></b></td>
-		<td align="center"><b><a herf="<%=mypage%>"> 마이페이지</a></b>
-		</td>
+		<td align="center"><b><a herf="<%=mypage%>"> 마이페이지</a></b></td>
 	</tr>
 </table>
 </header>

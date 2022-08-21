@@ -114,8 +114,7 @@ for (CartDTO cart : cartList) {
 	<%@include file="/footer.jsp"%>
 
 	<script>
-	
-	//전체선택
+
 	$(document).ready(function(){
 	  //selectedTotal
 		var total=Number(0);
@@ -133,7 +132,7 @@ for (CartDTO cart : cartList) {
 			e.preventDefault(); //버블 방지
 			let countBox = $(this).closest('.count-box'); //가장 가까운 (위에서 아래로) 체크박스
 			let row = countBox.closest('tr');//가장 가까운 (위에서 아래로) tr(row)
-			let countInput = countBox.find('input[name=countInput]');
+			let countInput = countBox.find('input[name=countInput]');//가장 가까운 체크박스를 찾은 곳에서 name이 countInput인 값을 찾아라
 			let count = parseInt(countInput.val());
 			let price = row.find('input[name=price]').val();
 			let totalInput = row.find('input[name=total]');
@@ -153,7 +152,7 @@ for (CartDTO cart : cartList) {
 			<% for(int j=0; j<productList.size(); j++){ %>
 				total += Number(document.getElementsByName("total")[<%=j%>].value);
 			<%}%>
-			$('#selectedTotal').val(total);
+			$('#selectedTotal').val(total); //#아이디 선택자
 			
 			
 		});
@@ -172,13 +171,20 @@ for (CartDTO cart : cartList) {
 			checkItem.prop("checked",true);
 		
 		//개별 체크
+		//체크박스가 선택되어 있는 부분의 전체 가격의 합계
 		$(document).on('change','input[name=checkP]', function(e) {
-			let totalPrice = $("#selectedTotal");
-			let countInput = count.find('input[name=countInput]');
+			let totalPrice = $("#selectedTotal"); // 장바구니 물건 전체 금액
+			let countInput  = countBox.find("input[name=countInput]");
+			let p_totalPrice = parseInt($("#total").val())
 			let count = countInput.val();
-			let result = countBox.find('input[name=price]');
-			totalPrice = parseInt(document.getElementById("sum").val(count));
-			let val = document.getElementById('input[name="checkP"]').checked; //체크박스 확인
+			console.log(p_totalPrice);
+			//let countBox = $(this).closest('.count-box'); // checkbox가 변한 위치의 가장 가까운 체크박스
+			//let count = countBox.find('input[name=countInput]').val(); // countinput -> 물건 개수
+			//let count = countInput.val();
+
+			//totalPrice = parseInt(document.getElementById("sum").val(count));
+			let val = document.getElementById('input[name="checkP"]').checked; //체크박스 확인	
+			let result 
 			
 			console.log(result);
 			if($(this).prop("checked")) {
@@ -191,8 +197,29 @@ for (CartDTO cart : cartList) {
 					//totalPrice.empty();
 					//totalPrice.html(val);
 					
-					$('#selectedTotal').prop(totalPrice);
 			});
+		
+			//개별 선택 삭제
+			 $("#removeSelectBtn").click(function() {
+	    	 let userid = "userid";
+	    	 let selectedItemArr = $('input[name="checkP"]:checked').map(function () {
+	    		    return this.value; 
+	    	 }).get();  
+	    	 
+	    	 console.log(userid);
+	    	 console.log(selectedItemArr);
+	    	 
+	         if(window.confirm("선택 상품을 삭제하시겠습니까?")) {
+	            location.href="cart_delete.jsp";
+	         }
+    });   
+			//전체 선택 삭제
+			 $("#removeAllBtn").click(function() {
+			      if(window.confirm("장바구니를 비우시겠습니까?")) {
+			         location.href="cart_clear.jsp";
+			      }
+			});  
+			
 			
 	});
 		
