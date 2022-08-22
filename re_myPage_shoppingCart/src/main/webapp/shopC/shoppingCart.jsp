@@ -11,7 +11,7 @@
 <%-- <jsp:useBean id="productDAO" class="dto.ProductDTO" />
 <jsp:useBean id="cartDAO" class="dto.CartDTO" />
  --%>
- 
+
 
 <%
 //String userid = (String)session.getAttribute("userid");
@@ -54,7 +54,7 @@ for (CartDTO cart : cartList) {
 	<%
 	} else {
 	%>
-	<form id = "cartForm" class="cartTable" method="post" action = "cart_submit.jsp">
+	<form id="cartForm" class="cartTable" method="post" action="cart_submit.jsp">
 		<div class="cartlist">
 			<table border="1">
 				<tr>
@@ -69,20 +69,13 @@ for (CartDTO cart : cartList) {
 				int i = 0;
 				for (; i < productList.size(); i++) {
 				%>
-
 				<tr>
-					<td><input type="checkbox" name="checkP" value="<%=cartList.get(i).getCartid()%>" class="check"> 
-					<input type="hidden" name="productid" value="<%=productList.get(i).getProductID()%>">
-					</td>
+					<td><input type="checkbox" name="checkP" value="<%=cartList.get(i).getCartid()%>" class="check"> <input type="hidden" name="productid" value="<%=productList.get(i).getProductID()%>"></td>
 					<td><input type="button" id="name<%=i%>" class="name" value="<%=productList.get(i).getPrname()%>"></td>
-					<td id="quantity<%=i%>" class="quantity">
-					<span class="count-box">
-							<button type="button" name="countBtn" class="upBtn">🔼</button> 
-							<input type="text" class="countInput" id="quantity" <%=i%> name="countInput" 
-								value="<%=qtyList.get(i)%>" readonly="readonly" style="width: 20px; border: none;">
+					<td id="quantity<%=i%>" class="quantity"><span class="count-box">
+							<button type="button" name="countBtn" class="upBtn">🔼</button> <input type="text" class="countInput" id="quantity" <%=i%> name="countInput" value="<%=qtyList.get(i)%>" readonly="readonly" style="width: 20px; border: none;">
 							<button type="button" name="countBtn" class="downBtn">🔽</button>
-					</span>
-					</td>
+					</span></td>
 					<td><input id="price<%=i%>" class="price" name="price" value="<%=productList.get(i).getPrice()%>" readonly="readonly"></td>
 					<td><input id="total<%=i%>" class="total" value="<%=(productList.get(i).getPrice() * qtyList.get(i))%>" name="total" readonly="readonly"></td>
 				</tr>
@@ -110,7 +103,7 @@ for (CartDTO cart : cartList) {
 	<%
 	}
 	%>
-	
+
 	<a href="http://localhost:8080/re_myPage_shoppingCart/myPage/userMain.jsp"> 메인페이지로 이동 </a>
 	<%@include file="/footer.jsp"%>
 
@@ -124,9 +117,9 @@ for (CartDTO cart : cartList) {
 			total += Number(document.getElementsByName("total")[<%=j%>].value);
 		  <%}%>
 		  $('#selectedTotal').val(total);
-	});
 	
-	$(document).ready(function() {
+	
+	
 		//수량 증가-감소 버튼
 		$(document).on('click','button[name="countBtn"]',function(e){
 			e.stopPropagation();
@@ -183,7 +176,11 @@ for (CartDTO cart : cartList) {
 			console.log(count);
 			
 			
-			
+		//체크된 아이들끼리만 묶어서 -> 결제예정부분으로 보내기
+		//전체선택 햇을때 이벤트 1개
+		//가격을 계산하는 코드 따로
+		//상품명 엥커 a 코드? 
+		
 			//let p_totalPrice = parseInt($("#total").val());
 			//let countBox = $(this).closest('.count-box'); // checkbox가 변한 위치의 가장 가까운 체크박스
 			//let count = countBox.find('input[name=countInput]').val(); // countinput -> 물건 개수
@@ -220,7 +217,7 @@ for (CartDTO cart : cartList) {
 	            location.href="cart_delete.jsp";
 	         }
     });   
-			//전체 선택 삭제
+			//전체 선택 삭제 -> 비우기
 			 $("#removeAllBtn").click(function() {
 			      if(window.confirm("장바구니를 비우시겠습니까?")) {
 			         location.href="cart_clear.jsp";

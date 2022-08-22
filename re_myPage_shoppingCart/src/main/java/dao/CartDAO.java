@@ -34,23 +34,22 @@ public class CartDAO {
 		PreparedStatement pstmt = null;
 		int rows = 0;
 		
-		
-		
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			con = DriverManager.getConnection(url, user, pwd);
 			
-			String sql = "insert into cart(CartID, ProductID, UserID, QUANTITY) VALUES(?,?,?,?)";
+			String sql = "insert into cart(CartID, ProductID, UserID, QUANTITY) VALUES(UUID_SHORT(),?,?,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, cart.getCartid());
-			pstmt.setString(2, cart.getProductid());
-			pstmt.setString(3, cart.getUserid());
-			pstmt.setInt(4, cart.getQuantitiy());
+			//pstmt.setString(1, cart.getCartid());
+			pstmt.setString(1, cart.getProductid());
+			pstmt.setString(2, cart.getUserid());
+			pstmt.setInt(3, cart.getQuantitiy());
 			
 			rows= pstmt.executeUpdate();
 			
 			pstmt.close();
 			con.close();
+			
 			
 			
 		} catch (Exception e) {

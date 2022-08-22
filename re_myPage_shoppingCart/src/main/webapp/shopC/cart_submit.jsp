@@ -19,28 +19,47 @@ String userid= "sss1"; //test용
 CartDAO.getDAO().clearCart(userid);
 
 String[] cartid = request.getParameterValues("checkP"); // cart id(물건 종류) 받아오기
-String[] q = request.getParameterValues("countInput"); //물건 수량 받아오기
-System.out.println(Arrays.toString(q));
-//System.out.println(Arrays.toString(q));
+String[] q = request.getParameterValues("countInput"); // 물건 개수 값 받아오는 부분
+
+String qs = "";
+String cartids = "";
+
+//cartid null보정
+if(null == cartid) {
+	cartid = new String[0];
+}
+for(int i=0; i<cartid.length; i++){
+	cartids+= cartid[i]+"&nbsp";
+}
+
+//q null값 보정 부분
+if(null==q){
+	q = new String[0];
+}
+for(int i=0; i<q.length; i++){
+	qs+= q[i]+"&nbsp";
+}
+
+System.out.println(cartid);
+
 String[] productid = request.getParameterValues("productid"); //제품 id 받아오기
 int[] quantity = new int[q.length]; //물건 수량 리스트 생성, 0초기화
-
 
 ProductDTO product = new ProductDTO();
 CartDTO cart = new CartDTO();
 
+
+
 for (int i=0; i<cartid.length; i++) { //물건 종류 개수	
 	quantity[i] = Integer.parseInt(q[i]);
 
-	cart.setCartid("UUID_short()");
+	//cart.setCartid(cartid[i]);
 	cart.setUserid(userid);
 	cart.setProductid(productid[i]);
 	cart.setQuantitiy(quantity[i]);
 	
 	CartDAO.getDAO().insertCart(cart);
 }
-
-
 
 out.println("<script type='text/javascript'>");
 out.println("location.href='shoppingCart.jsp'");
