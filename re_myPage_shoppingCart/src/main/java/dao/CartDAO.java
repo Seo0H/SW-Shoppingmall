@@ -29,18 +29,23 @@ public class CartDAO {
 	String user = "webmaster";
 	String pwd = "1234";
 	
-	public int insertCart(CartDTO cart) {
+	public int insertCart(CartDTO cart) { //장바구니에서 수정된 최종 값 db에 올리는 역할
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int rows = 0;
 		
+		
+		
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 			con = DriverManager.getConnection(url, user, pwd);
-			String sql = "insert into cart values(?, ?)";
+			
+			String sql = "insert into cart(CartID, ProductID, UserID, QUANTITY) VALUES(?,?,?,?)";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, cart.getProductid());
-			pstmt.setInt(2, cart.getQuantitiy());
+			pstmt.setString(1, cart.getCartid());
+			pstmt.setString(2, cart.getProductid());
+			pstmt.setString(3, cart.getUserid());
+			pstmt.setInt(4, cart.getQuantitiy());
 			
 			rows= pstmt.executeUpdate();
 			
@@ -56,7 +61,7 @@ public class CartDAO {
 		
 	}
 	
-	public int updateCart(CartDTO cart) {
+	public int updateCart(CartDTO cart) { 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		int rows = 0;
@@ -73,7 +78,7 @@ public class CartDAO {
 			pstmt.setInt(3, cart.getQuantitiy());
 			pstmt.setString(4, cart.getCartid());
 			
-			rows= pstmt.executeUpdate();
+			rows= pstmt.executeUpdate(); 
 			
 			pstmt.close();
 			con.close();
@@ -82,7 +87,7 @@ public class CartDAO {
 		} catch (Exception e) {
 			System.out.println("Cart 테이블 insert 오류 => " + e.getMessage());
 		}
-		return rows;
+		return rows; 
 	}
 	
 	public int deleteCart(String cartid) {

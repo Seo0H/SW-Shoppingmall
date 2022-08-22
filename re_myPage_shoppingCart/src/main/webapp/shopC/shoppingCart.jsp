@@ -54,7 +54,7 @@ for (CartDTO cart : cartList) {
 	<%
 	} else {
 	%>
-	<form>
+	<form id = "cartForm" class="cartTable" method="post" action = "cart_submit.jsp">
 		<div class="cartlist">
 			<table border="1">
 				<tr>
@@ -69,6 +69,7 @@ for (CartDTO cart : cartList) {
 				int i = 0;
 				for (; i < productList.size(); i++) {
 				%>
+
 				<tr>
 					<td><input type="checkbox" name="checkP" value="<%=cartList.get(i).getCartid()%>" class="check"> 
 					<input type="hidden" name="productid" value="<%=productList.get(i).getProductID()%>">
@@ -173,29 +174,35 @@ for (CartDTO cart : cartList) {
 		//개별 체크
 		//체크박스가 선택되어 있는 부분의 전체 가격의 합계
 		$(document).on('change','input[name=checkP]', function(e) {
-			let totalPrice = $("#selectedTotal"); // 장바구니 물건 전체 금액
-			let countInput  = countBox.find("input[name=countInput]");
-			let p_totalPrice = parseInt($("#total").val())
+			let totalPrice = $("#selectedTotal"); // 장바구니 물건 종류별 금액 경로
+			totalPrice = parseInt(totalPrice.val());//장바구니 물건 종류별 금액 number
+			console.log(typeof totalPrice);
+			
+			let countInput  = $('input:checkbox[name="countInput"]');
 			let count = countInput.val();
-			console.log(p_totalPrice);
+			console.log(count);
+			
+			
+			
+			//let p_totalPrice = parseInt($("#total").val());
 			//let countBox = $(this).closest('.count-box'); // checkbox가 변한 위치의 가장 가까운 체크박스
 			//let count = countBox.find('input[name=countInput]').val(); // countinput -> 물건 개수
 			//let count = countInput.val();
-
 			//totalPrice = parseInt(document.getElementById("sum").val(count));
-			let val = document.getElementById('input[name="checkP"]').checked; //체크박스 확인	
-			let result 
+			//let val = document.getElementById('input[name="checkP"]').checked; //체크박스 확인	
 			
-			console.log(result);
+			
+			/* console.log(result);
 			if($(this).prop("checked")) {
-				totalPrice += result;
+				p_totalPrice += result;
 				} else {
-					totalPrice -= result;
-				}
-					//document.getElementById("sum").value = totalPrice;
+					p_totalPrice -= result;
+				} */
+			
+			//document.getElementById("sum").value = totalPrice;
 					
-					//totalPrice.empty();
-					//totalPrice.html(val);
+			//totalPrice.empty();
+			//totalPrice.html(p_totalPrice);
 					
 			});
 		
@@ -218,7 +225,14 @@ for (CartDTO cart : cartList) {
 			      if(window.confirm("장바구니를 비우시겠습니까?")) {
 			         location.href="cart_clear.jsp";
 			      }
-			});  
+			}); 
+			
+			//주문하기
+			 $("#submitAllBin").click(function() {
+			      if(window.confirm("주문하시겠습니까?")) {
+			         location.href="cart_submit.jsp";
+			      }
+			}); 
 			
 			
 	});

@@ -2,9 +2,8 @@ package dto;
 
 public class CartDTO {
 	private String cartid; //카트 아이디
-	private String productid; //제품 아이디
 	private String userid; //유저 아이디
-	private int vality; // 유용성(내역유효=1, 내역삭제=2)
+	private String productid; //제품 아이디
 	private int quantitiy; //수량
 
 	
@@ -12,12 +11,11 @@ public class CartDTO {
 		
 	}
 	
-	public CartDTO(String cartid, String productid, String userid, int vality, int quantitiy) {
+	public CartDTO(String cartid, String productid, String userid, int quantitiy) {
 		super();
 		this.cartid = cartid;
 		this.productid = productid;
 		this.userid = userid;
-		this.vality = vality;
 		this.quantitiy = quantitiy;
 	}
 
@@ -37,14 +35,7 @@ public class CartDTO {
 		this.userid = userid;
 	}
 
-	public int getVality() {
-		return vality;
-	}
-
-	public void setVality(int vality) {
-		this.vality = vality;
-	}
-
+	
 	public int getQuantitiy() {
 		return quantitiy;
 	}
