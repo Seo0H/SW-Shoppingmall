@@ -11,6 +11,24 @@
 </head>
 
 <body>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+	$("#pwChangeBt").click(function(){
+
+		var pwChange = $('#pwChange').val();
+		
+		if( pwChange == ""){
+			alert("변경할 비밀번호를 입력 해 주세요."); 
+		} /* else if{
+			//여기에 조건으로 걸러내기
+		}
+		//이후 db 수정하는 부분까지 만들기 */
+	});
+});
+</script>
+
 <%@include file="/top.jsp"%>
 <h1>회원 정보</h1>
 <%
@@ -66,32 +84,15 @@
 %>
 <ul>
 	<li><a> 아이디: <%=userid %> </a></li>
-	<li><a> 비밀번호: <%=password %> </a></li>
-	<li><input type="text" id="pwChange" value=""> <input type="button" id="pwChangeBt" value="비밀번호 변경"></li>
+	<li><a> 비밀번호: </a><input type="text" id="pwChange" value=""> <input type="button" id="pwChangeBt" value="비밀번호 변경"></li>
 	<li><a> 이름: <%=username %></a></li>
 	<li><a> 나이: <%=age %></a></li>
 	<li><a> 성별: <%=sex %></a></li>
-	<li><a> 주소: <%=address %></a></li>
+	<li><a> 주소 정보:><%=address %></a></li>
 </ul>
 
 <a href= "userMain.jsp"> 메인페이지로 이동 </a>
 
-<script type="text/javascript">
-
-$(document).ready(function() {
-	$("#pwChangeBt").click(function(){
-
-		var pwChange = $('#pwChange').val();
-		
-		if( pwChange == ""){
-			alert("변경할 비밀번호를 입력 해 주세요."); 
-		} else if{
-			//여기에 조건으로 걸러내기
-		}
-		//이후 db 수정하는 부분까지 만들기
-	});
-});
-</script>
 
 <%@include file="/footer.jsp"%>
 </body>

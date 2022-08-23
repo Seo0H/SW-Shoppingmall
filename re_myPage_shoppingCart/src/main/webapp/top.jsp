@@ -10,8 +10,8 @@ if (session_id == null){
 else {
 	log = "<a href=logout.jsp>로그아웃</a>"; 
 	join = "<a href=update.jsp>사용자 정보 수정</a>";
-	mypage = "<a href=''> ";
-	shoppingCart = "<a href=http://localhost:8080/re_myPage_shoppingCart/shopC/shoppingCart.jsp>장바구니</a>";
+	mypage = "<a href='http://localhost:8080/myPage/userMain.jsp'> 마이페이지</a> ";
+	shoppingCart = "<a href=http://localhost:8080/shopC/shoppingCart.jsp>장바구니</a>";
 }
 %>
 <style>
@@ -32,7 +32,7 @@ else {
 		<td align="center"><b><%=join%></b></td>
 		<td align="center"><b><a href="">전체상품</a></b></td>
 		<td align="center"><b><%=shoppingCart%></b></td>
-		<td align="center"><b><a herf="<%=mypage%>"> 마이페이지</a></b></td>
+		<td align="center"><b><%=mypage%></b></td>
 	</tr>
 </table>
 </header>

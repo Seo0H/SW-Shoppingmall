@@ -81,10 +81,10 @@
 		<h2 class="heading-2">Your account</h2>
 		<div class="list">
 			<ul>
-				<li class="is-active" href="#"><a> 회원 정보 </a></li>
+				<!-- <li class="is-active" href="#"><a> 회원 정보 </a></li> -->
 				<!-- 마이페이지 기본값 -->
 				<li><a href="Delivery.jsp"> 주문 / 배송</a></li>
-				<li><a href="../shoppingCart/shoppingCart.jsp"> 장바구니</a></li>
+				<!-- <li><a href="../shoppingCart/shoppingCart.jsp"> 장바구니</a></li> -->
 				<% if(userid !=null){
 	if(userid.equals("admin")){					
 %>
@@ -105,8 +105,7 @@
 	<form name = userbasic id= userbasic >
 		로그인 아이디 :	<%=userid %> <br>
 		회원 이름: <%=username %><br>
-		<br>
-		<input type="button" onclick="logout()" value="로그아웃"><br> 
+		<!-- <input type="button" onclick="logout()" value="로그아웃"><br>  -->
 		회원 정보 확인/수정: <input type="password" id="password" name="password" class="passwd"  placeholder="비밀번호를 입력하세요.">
 		<button id="button" id="password" onclick="pwConfig()"  >비밀번호 확인</button>
 		<%
